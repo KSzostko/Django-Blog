@@ -35,3 +35,6 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text_content = models.TextField()
     published_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.post}{self.text_content}'
