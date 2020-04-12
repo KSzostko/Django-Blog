@@ -23,7 +23,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     text_content = models.TextField()
     image = models.ImageField(blank=True)
-    auth_required = models.BooleanFiled(default=False)
+    auth_required = models.BooleanField(default=False)
     published_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
