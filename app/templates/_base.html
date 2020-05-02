@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}">
-    <title>Blogs</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
@@ -34,13 +36,14 @@
         <header>
             <div class="welcome">
                 <h1 class="welcome__title">Bloggers Community</h1>
-                <h2 class="welcome__subtitle">The best site for novice blogger</h2>
-                <a class="welcome__link" href="#">I want to start a blog!</a>
+                <h2 class="welcome__subtitle">The best site for novice bloggers</h2>
+                <a class="welcome__link" href="#">Start a blog!</a>
             </div>
         </header>
 
         <main>
-
+            Tutaj bedzie kod poszczegolnych stron
+            {% block content %}{% endblock %}
         </main>
 
         <footer>Copyright &copy; J&P 2020 all rights reserved</footer>
