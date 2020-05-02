@@ -200,6 +200,12 @@ header {
     border: 1px solid #fff;
     padding: 10px 15px;
     margin-top: 60px;
+    transition: .25s;
+}
+
+.welcome__link:hover {
+    background: #fff;
+    color: #252b2d;
 }
 
 main {
