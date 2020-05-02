@@ -169,6 +169,8 @@ body {
 header {
     height: 60vh;
     background-image: url('../img/social-media-1989152_1920.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .welcome {
