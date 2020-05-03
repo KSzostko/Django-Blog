@@ -144,6 +144,7 @@ body {
     width: 100vw;
     background: #252b2d;
     box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 1);
+    position: fixed;
 }
 
 .nav__list {
@@ -167,7 +168,7 @@ body {
 }
 
 header {
-    height: 60vh;
+    height: 70vh;
     background-image: url('../img/social-media-1989152_1920.jpg');
     background-size: cover;
     background-attachment: fixed;
@@ -181,6 +182,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* margin-top: 90px; */
 }
 
 .welcome__title {
@@ -212,7 +214,7 @@ header {
 }
 
 main {
-    height: 30vh;
+    height: 80vh;
 }
 
 footer {
