@@ -3,7 +3,7 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<div class="blogs">
+<section class="blogs">
     {% if blog_list %}
 
     {% for blog in blog_list %}
@@ -19,5 +19,5 @@
     {% else %}
     <p>There are currently no blogs started :(</>
     {% endif %}
-</div>
+    </section>
 {% endblock %}
