@@ -3,4 +3,21 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
+<div class="blogs">
+    {% if blog_list %}
+
+    {% for blog in blog_list %}
+    <div class="blog">
+        <h2 class="blog__title">{{ blog.title }}</h2>
+        <div class="blog__text">
+            <p class="blog__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quam, incidunt cumque, atque alias rem sit optio asperiores perspiciatis, quisquam sed unde maxime nostrum dolorem! Asperiores molestiae qui incidunt quibusdam!</p>
+            <span class="blog__author">Author: {{ blog.creator.username }}</span>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <p>There are currently no blogs started :(</>
+    {% endif %}
+</div>
 {% endblock %}
