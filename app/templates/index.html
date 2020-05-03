@@ -4,17 +4,21 @@
 
 {% block content %}
 <section class="blogs">
-    {% if blog_list %}
+    <h2 class="blogs__header">Check out our blogs</h2>
 
-    {% for blog in blog_list %}
-    <div class="blog">
-        <h2 class="blog__title">{{ blog.title }}</h2>
-        <div class="blog__text">
-            <p class="blog__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quam, incidunt cumque, atque alias rem sit optio asperiores perspiciatis, quisquam sed unde maxime nostrum dolorem! Asperiores molestiae qui incidunt quibusdam!</p>
-            <span class="blog__author">Author: {{ blog.creator.username }}</span>
+    {% if blog_list %}
+    <div class="blog-list">
+        {% for blog in blog_list %}
+        <div class="blog">
+            <h2 class="blog__title">{{ blog.title }}</h2>
+            <div class="blog__text">
+                <p class="blog__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quam, incidunt cumque, atque alias rem sit optio asperiores perspiciatis, quisquam sed unde maxime nostrum dolorem! Asperiores molestiae qui incidunt quibusdam!</p>
+                <a href="#" class="blog__button">View</a>
+                <span class="blog__author">created by: {{ blog.creator.username }}</span>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 
     {% else %}
     <p>There are currently no blogs started :(</>
