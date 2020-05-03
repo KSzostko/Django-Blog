@@ -203,6 +203,7 @@ header {
     padding: 10px 15px;
     margin-top: 60px;
     transition: .25s;
+    border-radius: 5px;
 }
 
 .welcome__link:hover {
