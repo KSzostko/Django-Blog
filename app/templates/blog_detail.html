@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% block title %}Blog Detail{% endblock %}
+
+{% block content %}
+
+<section class="detail">
+    <h2 class="detail__title"><strong class="detail__welcome">Welcome to</strong>{{ object.title }} blog!</h2>
+    <div class="detail__intro">
+        <p class="detail__intro-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum neque perspiciatis modi similique quas aliquid dolorum delectus ipsam officiis esse expedita, nam eum non aperiam ipsum ducimus debitis reprehenderit magni.</p>
+        <div class="detail___intro-info">
+            <!-- <img src="" alt=""> -->
+            <span class="detail__intro-posts">
+                <span class="detail__intro-count">{{ object.post_set.count }}</span>
+            Posts
+            </span>
+            <span class="detail__author">
+                <span class="detail__author-name">{{ object.creator }}</span>
+            Creator
+            </span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

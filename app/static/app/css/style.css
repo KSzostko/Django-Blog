@@ -136,8 +136,13 @@ table {
 }
 
 /* main styles */
+:root {
+    --main-font: 'Montserrat';
+    --secondary-font: 'Dancing Script';
+}
+
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--main-font), sans-serif;
 }
 
 .nav {
@@ -191,7 +196,7 @@ header {
 }
 
 .welcome__subtitle {
-    font-family: 'Dancing Script', cursive;
+    font-family: var(--secondary-font), cursive;
     font-size: 25px;
 }
 
@@ -286,4 +291,24 @@ footer {
 
 .blog__button:hover {
     background: rgba(187, 144, 75, 0.9);
+}
+
+/* blog detail */
+.detail {
+    padding: 40px;
+}
+
+.detail__title {
+    text-align: center;
+    font-size: 40px;
+    color: #707070;
+}
+
+.detail__welcome {
+    display: block;
+    font-family: var(--secondary-font), cursive;
+    color: #E4BB7A;
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
 }
