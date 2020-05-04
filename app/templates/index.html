@@ -13,7 +13,7 @@
             <h2 class="blog__title">{{ blog.title }}</h2>
             <div class="blog__text">
                 <p class="blog__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quam, incidunt cumque, atque alias rem sit optio asperiores perspiciatis, quisquam sed unde maxime nostrum dolorem! Asperiores molestiae qui incidunt quibusdam!</p>
-                <a href="#" class="blog__button">View</a>
+                <a href="{% url 'blog_detail' pk=blog.pk %}" class="blog__button">View</a>
                 <span class="blog__author">created by: {{ blog.creator.username }}</span>
             </div>
         </div>
