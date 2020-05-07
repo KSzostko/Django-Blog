@@ -9,15 +9,15 @@
     <h2 class="detail__title"><strong class="detail__welcome">Welcome to</strong>{{ object.title }} blog!</h2>
     <div class="detail__intro">
         <p class="detail__intro-desc">{{ object.description }}</p>
-        <div class="detail___intro-info">
+        <div class="detail__intro-info">
             <img class="detail__intro-logo" src="{% static 'app/img/Football.jpg' %}" alt="">
             <span class="detail__intro-posts">
+                Posts
                 <span class="detail__intro-count">{{ object.post_set.count }}</span>
-            Posts
             </span>
             <span class="detail__author">
+                Creator
                 <span class="detail__author-name">{{ object.creator }}</span>
-            Creator
             </span>
         </div>
     </div>
