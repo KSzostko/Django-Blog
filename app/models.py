@@ -23,6 +23,7 @@ class Post(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
+    intro = models.TextField(default='')
     text_content = models.TextField()
     image = models.ImageField(blank=True, upload_to='')
     auth_required = models.BooleanField(default=False)
