@@ -28,7 +28,15 @@
 
         {% for post in object.post_set.all %}
         <article class="post">
-
+            <!-- TODO add conditional rendering(post public or not) -->
+            <div class="post__header">
+                <img class="post__image" src="{{ post.image.url }}" alt="post header">
+                <!-- TODO utils function for better date display -->
+                <span class="post__created">{{ post.published_date }}</span>
+            </div>
+            <h4 class="post__title">{{ post.title }}</h4>
+            <p class="post__intro">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt molestias harum quidem at saepe autem nobis architecto reprehenderit ipsum, quo eveniet repellat ratione, minima distinctio rerum pariatur culpa dolorum eius?</p>
+            <a class="post__link" href="#">View more</a>
         </article>
         {% endfor %}
 
