@@ -24,12 +24,12 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     text_content = models.TextField()
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, upload_to='')
     auth_required = models.BooleanField(default=False)
     published_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.blog}{self.title}'
+        return f'{self.blog}: {self.title}'
 
 
 class Comment(models.Model):
