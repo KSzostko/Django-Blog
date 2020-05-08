@@ -32,17 +32,17 @@
             <div class="post__header">
                 <img class="post__image" src="{{ post.image.url }}" alt="post header">
                 <!-- TODO utils function for better date display -->
-                <span class="post__created">{{ post.published_date }}</span>
             </div>
             <h4 class="post__title">{{ post.title }}</h4>
+            <span class="post__created">{{ post.published_date }}</span>
             <p class="post__intro">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt molestias harum quidem at saepe autem nobis architecto reprehenderit ipsum, quo eveniet repellat ratione, minima distinctio rerum pariatur culpa dolorum eius?</p>
-            <a class="post__link" href="#">View more</a>
+            <a class="button" href="#">View more</a>
         </article>
         {% endfor %}
 
         {% else %}
 
-        <p>Currently, there are no posts created yet</p>
+        <p class="info">Currently, there are no posts created yet</p>
         {% endif %}
     </div>
 </section>
