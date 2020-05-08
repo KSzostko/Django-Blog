@@ -21,6 +21,22 @@
             </span>
         </div>
     </div>
+
+    <div class="posts">
+        <h3 class="posts__header">My posts</h3>
+        {% if object.post_set.count %}
+
+        {% for post in object.post_set.all %}
+        <article class="post">
+
+        </article>
+        {% endfor %}
+
+        {% else %}
+
+        <p>Currently, there are no posts created yet</p>
+        {% endif %}
+    </div>
 </section>
 
 {% endblock %}
