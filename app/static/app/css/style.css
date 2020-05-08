@@ -213,8 +213,8 @@ header {
 }
 
 .welcome__link:hover {
-    background: #fff;
     color: #252b2d;
+    box-shadow: inset 10em 0 0 0 #fff;
 }
 
 footer {
