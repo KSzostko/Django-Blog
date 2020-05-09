@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Blog, Post
+from .models import Blog, Post, Comment
 
 # Create your views here.
 
@@ -18,3 +18,8 @@ class BlogDetailView(generic.DetailView):
 class PostDetailView(generic.DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+
+class CommentListView(generic.ListView):
+    model = Comment
+    template_name = 'comment_list.html'

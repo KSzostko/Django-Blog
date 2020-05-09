@@ -15,7 +15,7 @@
     <h4 class="post__title post__title--full">{{ object.title }}</h4>
     <span class="post__created">{{ object.published_date }}</span>
     <p class="post__text">{{ object.text_content }}</p>
-    <a class="button" href="#">View comments ({{ object.comment_set.count }})</a>
+    <a class="button" href="{% url 'comment_list' pk=object.pk %}">View comments ({{ object.comment_set.count }})</a>
 </article>
 
 {% endblock %}
