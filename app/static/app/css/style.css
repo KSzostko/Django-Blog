@@ -406,3 +406,34 @@ footer {
     text-align: center;
     margin-top: 100px;
 }
+
+/* full post */
+.post--full {
+    max-width: 1024px;
+    margin: 0 auto 40px auto;
+    border-style: none;
+}
+
+.post__hero {
+    max-width: 1024px;
+}
+
+.post__title--full {
+    font-size: 40px;
+}
+
+.post__text {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.from {
+    border-bottom: 1px solid #DDD;
+    padding: 10px;
+}
+
+.from__content {
+    color: #707070;
+    font-size: 10px;
+}

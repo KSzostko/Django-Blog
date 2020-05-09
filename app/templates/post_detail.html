@@ -4,16 +4,18 @@
 
 {% block content %}
 
-<article class="post">
-    <div class="post__header">
+<section class="from">
+    <span class="from__content">{{ object.blog }} → {{ object.title }}</span>
+</section>
+
+<article class="post post--full">
+    <div class="post__hero">
         <img class="post__image" src="{{ object.image.url }}" alt="post header">
     </div>
-    <h4 class="post__title">{{ object.title }}</h4>
+    <h4 class="post__title post__title--full">{{ object.title }}</h4>
     <span class="post__created">{{ object.published_date }}</span>
-    <p class="post__intro">{{ object.intro }}</p>
-    <div class="post__comments">
-        Komentarze({{ object.comment_set.count }})
-    </div>
+    <p class="post__text">{{ object.text_content }}</p>
+    <a class="button" href="#">View comments ({{ object.comment_set.count }})</a>
 </article>
 
 {% endblock %}
