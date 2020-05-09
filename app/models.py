@@ -40,4 +40,4 @@ class Comment(models.Model):
     published_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.post}{self.text_content}'
+        return f'{self.post} {self.text_content}'
