@@ -4,6 +4,27 @@
 
 {% block content %}
 
-<h1>This is Comment List View</h1>
+<section class="comments">
+    <h2 class="comment__header">There are {{ comment_list.count }} comments</h2>
+
+    {% if comment_list.count %}
+
+    {% for comment in comment_list %}
+
+    <div class="comment">
+        <img class="comment__avatar" src="{{ comment.author.photo.url }}" alt="comment author avatart">
+        <div class="comment__content">
+            <span class="comment__author">{{ comment.author.username }}</span>
+            <span class="comment__date">{{ comment.published_date }}</span>
+            <p class="comment__text">{{ comment.text_content }}</p>
+        </div>
+    </div>
+
+    {% endfor %}
+
+    {% else %}
+    <p class="info">There are no comments yet, be first to comment!</p>
+    {% endif %}
+</section>
 
 {% endblock %}
