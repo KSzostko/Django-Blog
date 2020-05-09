@@ -5,7 +5,7 @@
 {% block content %}
 
 <section class="comments">
-    <h2 class="comment__header">There are {{ comment_list.count }} comments</h2>
+    <h2 class="comments__header">There are {{ comment_list.count }} comments</h2>
 
     {% if comment_list.count %}
 
@@ -15,7 +15,7 @@
         <img class="comment__avatar" src="{{ comment.author.photo.url }}" alt="comment author avatart">
         <div class="comment__content">
             <span class="comment__author">{{ comment.author.username }}</span>
-            <span class="comment__date">{{ comment.published_date }}</span>
+            <span class="created comment__date">{{ comment.published_date }}</span>
             <p class="comment__text">{{ comment.text_content }}</p>
         </div>
     </div>

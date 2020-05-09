@@ -387,9 +387,7 @@ footer {
     font-size: 30px;
 }
 
-.post__created {
-    width: 60px;
-    height: 60px;
+.created {
     text-align: center;
     font-size: 12px;
     color: #707070;
@@ -436,4 +434,43 @@ footer {
 .from__content {
     color: #707070;
     font-size: 10px;
+}
+
+/* comments section */
+.comments {
+    padding: 40px 20px;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.comments__header {
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.comment {
+    display: flex;
+    padding: 20px;
+}
+
+.comment__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.comment__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment__author {
+    font-weight: 700;
+}
+
+.comment__date {
+    text-align: left;
+    margin-bottom: 20px;
 }
