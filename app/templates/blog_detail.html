@@ -27,7 +27,7 @@
         {% if object.post_set.count %}
 
         {% for post in object.post_set.all %}
-        <article class="post">
+        <article class="post post--full">
             <!-- TODO add conditional rendering(post public or not) -->
             <div class="post__header">
                 <img class="post__image" src="{{ post.image.url }}" alt="post header">

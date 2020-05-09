@@ -1,9 +1,19 @@
 {% extends '_base.html' %}
 
-{% block title %} Post detail {% endblock %}
+{% block title %} {{ object.title }} {% endblock %}
 
 {% block content %}
 
-<h1>This is Post detail view</h1>
+<article class="post">
+    <div class="post__header">
+        <img class="post__image" src="{{ object.image.url }}" alt="post header">
+    </div>
+    <h4 class="post__title">{{ object.title }}</h4>
+    <span class="post__created">{{ object.published_date }}</span>
+    <p class="post__intro">{{ object.intro }}</p>
+    <div class="post__comments">
+        Komentarze({{ object.comment_set.count }})
+    </div>
+</article>
 
 {% endblock %}
