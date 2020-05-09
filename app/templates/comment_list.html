@@ -20,6 +20,8 @@
         </div>
     </div>
 
+    <a class="button comments__button" href="{% url 'post_detail' pk=comment.post.pk %}">Go back</a>
+
     {% endfor %}
 
     {% else %}
