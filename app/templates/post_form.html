@@ -4,9 +4,13 @@
 
 {% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-</form>
+<div class="form-wrapper">
+    <h2 class="form__header">Create Post</h2>
+    <form class="form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Send</button>
+    </form>
+</div>
 
 {% endblock %}

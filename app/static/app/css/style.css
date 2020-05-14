@@ -482,3 +482,61 @@ footer {
 .comments__button {
     margin-top: 60px;
 }
+
+/* forms */
+.form-wrapper {
+    max-width: 1024px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form__header {
+    flex-basis: 100%;
+    text-align: center;
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    color: #252b2d;
+}
+
+.form p {
+    margin-bottom: 10px;
+}
+
+.form label {
+    display: block;
+    font-size: 12px;
+}
+
+.form input[type="text"],
+.form textarea {
+    width: 100%;
+    border: 1px solid #BBB;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.form input[type="text"]:focus,
+.form textarea:focus {
+    border-color: #252b2d;
+}
+
+.form label[for="id_auth_required"] {
+    display: inline;
+}
+
+.form .button {
+    align-self: flex-start;
+}
+
+.form textarea {
+    resize: none;
+}
