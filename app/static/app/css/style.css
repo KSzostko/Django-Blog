@@ -371,6 +371,7 @@ footer {
     max-width: 720px;
     border-bottom: 1px solid #707070;
     padding-bottom: 40px;
+    margin-top: 40px;
 }
 
 .post__header {
@@ -379,12 +380,13 @@ footer {
 
 .post__image {
     width: 100%;
+    border-radius: 10px;
 }
 
 .post__title {
     font-weight: 700;
-    /* text-transform: uppercase; */
     font-size: 30px;
+    margin-top: 20px;
 }
 
 .created {
@@ -403,6 +405,10 @@ footer {
     margin-left: 20px;
 }
 
+.post__button {
+    margin-top: 20px;
+}
+
 .info {
     font-size: 30px;
     text-align: center;
@@ -418,6 +424,7 @@ footer {
 
 .post__hero {
     max-width: 1024px;
+    margin-top: 60px;
 }
 
 .post__title--full {

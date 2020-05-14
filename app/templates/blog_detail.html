@@ -40,12 +40,15 @@
             <p class="post__intro">{{ post.intro }}</p>
             <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
         </article>
+
         {% endfor %}
 
         {% else %}
 
         <p class="info">Currently, there are no posts created yet</p>
         {% endif %}
+
+        <a class="button post__button" href="{% url 'post_new' pk=object.pk %}">New Post</a>
     </div>
 </section>
 
