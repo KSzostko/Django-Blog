@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Blog, Post, Comment
+from .forms import PostForm
 
 # Create your views here.
 
@@ -18,6 +19,13 @@ class BlogDetailView(generic.DetailView):
 class PostDetailView(generic.DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+
+class CreatePostView(generic.CreateView):
+    redirect_field_name = 'blog_detail.html'
+    template_name = 'post_form.html'
+    form_class = PostForm
+    model = Post
 
 
 class CommentListView(generic.ListView):
