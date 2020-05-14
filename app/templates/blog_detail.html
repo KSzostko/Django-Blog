@@ -48,6 +48,7 @@
         <p class="info">Currently, there are no posts created yet</p>
         {% endif %}
 
+        <!-- TODO only creator of the blog should see this button -->
         <a class="button post__button" href="{% url 'post_new' pk=object.pk %}">New Post</a>
     </div>
 </section>
