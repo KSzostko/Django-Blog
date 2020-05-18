@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.utils import timezone
 
 
-class User(auth.models.User):
+class User(auth.models.User, auth.models.PermissionsMixin):
     photo = models.ImageField(upload_to='', default='user.png')
 
     def __str__(self):

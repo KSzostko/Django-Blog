@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog, Post, Comment
 from .forms import PostForm, BlogForm
 
@@ -36,7 +37,8 @@ class BlogDetailView(generic.DetailView):
     template_name = 'blog_detail.html'
 
 
-class CreateBlogView(generic.CreateView):
+class CreateBlogView(generic.CreateView, LoginRequiredMixin):
+    login_url = '/login/'
     redirect_field_name = 'index.html'
     template_name = 'blog_form.html'
     form_class = BlogForm

@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
 <div class="form-wrapper">
     <h2 class="form__header">Create Blog</h2>
     <form class="form" method="POST" enctype="multipart/form-data">
@@ -12,5 +13,8 @@
         <button class="button" type="submit">Send</button>
     </form>
 </div>
+{% else %}
+<p class="info">You have to be a member to create a Blog</p>
+{% endif %}
 
 {% endblock %}
