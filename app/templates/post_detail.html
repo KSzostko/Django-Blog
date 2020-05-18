@@ -3,7 +3,6 @@
 {% block title %} {{ object.title }} {% endblock %}
 
 {% block content %}
-
 <section class="from">
     <span class="from__content">{{ object.blog }} → {{ object.title }}</span>
 </section>
@@ -15,7 +14,7 @@
     <h4 class="post__title post__title--full">{{ object.title }}</h4>
     <span class="created">{{ object.published_date }}</span>
     <p class="post__text">{{ object.text_content }}</p>
-    <a class="button" href="{% url 'comment_list' pk=object.pk %}">View comments ({{ object.comment_set.count }})</a>
+    <a class="button" href="{% url 'post_comments' pk=object.pk %}">View comments ({{ object.comments.count }})</a>
     <a class="button post__back" href="{% url 'blog_detail' pk=object.blog.pk %}">Go back</a>
 </article>
 

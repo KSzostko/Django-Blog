@@ -48,6 +48,6 @@ class PostDetailView(generic.DetailView):
     template_name = 'post_detail.html'
 
 
-class CommentListView(generic.ListView):
-    model = Comment
-    template_name = 'comment_list.html'
+class PostCommentsView(generic.DetailView):
+    model = Post
+    template_name = 'post_comments.html'
