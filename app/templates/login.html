@@ -1,1 +1,22 @@
-login page
+{% extends '_base.html' %}
+
+{% block title %} Log in {% endblock %}
+
+
+{% block content %}
+
+<div class="form-wrapper form-wrapper--login">
+    <h2 class="form__header">Please log in</h2>
+
+    {% if form.errors %}
+    <p class="error">Your username and password didn't match. Please try again</p>
+    {% endif %}
+
+    <form class="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Login</button>
+    </form>
+</div>
+
+{% endblock %}

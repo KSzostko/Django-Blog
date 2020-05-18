@@ -500,6 +500,11 @@ footer {
     flex-wrap: wrap;
 }
 
+.form-wrapper--login {
+    flex-direction: column;
+    align-items: center;
+}
+
 .form__header {
     flex-basis: 100%;
     text-align: center;
@@ -525,6 +530,7 @@ footer {
 }
 
 .form input[type="text"],
+.form input[type="password"],
 .form textarea {
     width: 100%;
     border: 1px solid #BBB;
@@ -533,6 +539,7 @@ footer {
 }
 
 .form input[type="text"]:focus,
+.form input[type="password"]:focus,
 .form textarea:focus {
     border-color: #252b2d;
 }
@@ -547,4 +554,9 @@ footer {
 
 .form textarea {
     resize: none;
+}
+
+.error {
+    font-size: 12px;
+    color: red;
 }
