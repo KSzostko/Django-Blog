@@ -4,6 +4,18 @@
 
 {% block content %}
 
-<h1>This is signup page</h1>
+<div class="form-wrapper">
+    <h2 class="form__header">This is signup page</h2>
+
+    {% if user.is_authenticated %}
+    <p class="info">You are already a member</p>
+    {% else %}
+    <form class="form" action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Sign in</button>
+    </form>
+    {% endif %}
+</div>
 
 {% endblock %}

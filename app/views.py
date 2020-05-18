@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Blog, Post, Comment
+from .models import Blog, Post, Comment, User
 from .forms import PostForm, BlogForm, UserForm
 
 # Create your views here.
@@ -33,10 +33,18 @@ def add_post(request, pk):
     return render(request, 'post_form.html', context={'form': form})
 
 
-class SignUp(generic.CreateView):
-    form_class = UserForm
-    success_url = reverse_lazy('login')
-    template_name = 'signup.html'
+def create_user(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('index')
+    else:
+        form = UserForm()
+
+    return render(request, 'signup.html', context={'form': form})
 
 
 class BlogDetailView(generic.DetailView):

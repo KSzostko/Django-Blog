@@ -560,3 +560,22 @@ footer {
     font-size: 12px;
     color: red;
 }
+
+.helptext {
+    display: none;
+}
+
+.form ul {
+    display: none;
+}
+
+.form ul.errorlist {
+    display: block;
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.form-wrapper--login ul.errorlist {
+    display: none;
+}

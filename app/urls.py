@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('signup/', views.SignUp.as_view(), name='signup'),
+    path('signup/', views.create_user, name='signup'),
     path('accounts/login/',
          auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(),

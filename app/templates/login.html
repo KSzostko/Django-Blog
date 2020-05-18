@@ -12,11 +12,15 @@
     <p class="error">Your username and password didn't match. Please try again</p>
     {% endif %}
 
+    {% if user.is_authenticated %}
+    <p class="info">You are already logged in</p>
+    {% else %}
     <form class="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="button" type="submit">Login</button>
     </form>
+    {% endif %}
 </div>
 
 {% endblock %}

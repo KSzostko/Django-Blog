@@ -1,7 +1,6 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import Post, Blog
+from .models import Post, Blog, User
 
 
 class PostForm(forms.ModelForm):
@@ -17,8 +16,14 @@ class BlogForm(forms.ModelForm):
 
 
 class UserForm(UserCreationForm):
-    model = get_user_model()
-    fields = ('username', 'photo', 'password1', 'password2')
 
-    # def __init__(self, *args, **kwargs):
-    # super.__init__(*args, **kwargs)
+    class Meta():
+        model = User
+        fields = ('username', 'photo', 'password1', 'password2')
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+            self.fields['photo'].label = 'A teraz to pewnie zadzialasz'
+            # for fieldname in ['username', 'photo', 'password1', 'password2']:
+            # self.fields['username'].help_text = ''
