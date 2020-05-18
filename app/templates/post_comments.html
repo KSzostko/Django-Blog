@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+
+{% block title %} Post comments {% endblock %}
+
+{% block content %}
+
+<section class="comments">
+    <h2 class="comments__header">There are {{ object.comments.count }} comments</h2>
+
+    {% if object.comments.count %}
+
+    {% for comment in object.comments.all %}
+
+    <div class="comment">
+        <img class="comment__avatar" src="{{ comment.author.photo.url }}" alt="comment author avatart">
+        <div class="comment__content">
+            <span class="comment__author">{{ comment.author.username }}</span>
+            <span class="created comment__date">{{ comment.published_date }}</span>
+            <p class="comment__text">{{ comment.text_content }}</p>
+        </div>
+    </div>
+
+
+    {% endfor %}
+
+    {% else %}
+    <p class="info">There are no comments yet, be first to comment!</p>
+    {% endif %}
+
+    <a class="button comments__button" href="{% url 'post_detail' pk=object.pk %}">Go back</a>
+</section>
+
+{% endblock %}
