@@ -29,8 +29,8 @@
         {% for post in object.post_set.all %}
         <!-- TODO add search bar and implement post searching -->
 
+        {% if user.is_authenticated %}
         <article class="post">
-            <!-- TODO add conditional rendering(post public or not) -->
             <div class="post__header">
                 <img class="post__image" src="{{ post.image.url }}" alt="post header">
                 <!-- TODO utils function for better date display -->
@@ -40,6 +40,21 @@
             <p class="post__intro">{{ post.intro }}</p>
             <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
         </article>
+        {% else %}
+
+        {% if not post.auth_required %}
+        <article class="post">
+            <div class="post__header">
+                <img class="post__image" src="{{ post.image.url }}" alt="post header">
+            </div>
+            <h4 class="post__title">{{ post.title }}</h4>
+            <span class="created">{{ post.published_date }}</span>
+            <p class="post__intro">{{ post.intro }}</p>
+            <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
+        </article>
+        {% endif %}
+
+        {% endif %}
 
         {% endfor %}
 
