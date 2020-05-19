@@ -68,3 +68,11 @@ class PostDetailView(generic.DetailView):
 class PostCommentsView(generic.DetailView):
     model = Post
     template_name = 'post_comments.html'
+
+
+class ThanksView(generic.TemplateView):
+    template_name = 'thanks.html'
+
+
+class TestView(generic.TemplateView):
+    template_name = 'test.html'
