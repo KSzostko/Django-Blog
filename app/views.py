@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog, Post, Comment, User
 from .forms import PostForm, BlogForm, UserForm
@@ -13,6 +14,7 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
+@login_required
 def add_post(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
 
@@ -30,7 +32,7 @@ def add_post(request, pk):
     else:
         form = PostForm()
 
-    return render(request, 'post_form.html', context={'form': form})
+    return render(request, 'post_form.html', context={'form': form, 'author': blog.creator})
 
 
 def create_user(request):
@@ -52,12 +54,24 @@ class BlogDetailView(generic.DetailView):
     template_name = 'blog_detail.html'
 
 
-class CreateBlogView(generic.CreateView, LoginRequiredMixin):
-    login_url = '/login/'
-    redirect_field_name = 'index.html'
-    template_name = 'blog_form.html'
-    form_class = BlogForm
-    model = Blog
+@login_required
+def create_blog(request):
+    user = User.objects.get(pk=request.user.pk)
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST)
+
+        if form.is_valid():
+            blog = form.save(commit=False)
+
+            blog.creator = user
+            blog.save()
+
+            return redirect('index')
+    else:
+        form = BlogForm()
+
+    return render(request, 'blog_form.html', context={'form': form})
 
 
 class PostDetailView(generic.DetailView):

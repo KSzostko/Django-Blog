@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% if user.username == author.username  %}
 <div class="form-wrapper">
     <h2 class="form__header">Create Post</h2>
     <form class="form" method="POST" enctype="multipart/form-data">
@@ -12,5 +13,8 @@
         <button class="button" type="submit">Send</button>
     </form>
 </div>
+{% else %}
+<p class="info">Only Blog creator can add posts</p>
+{% endif %}
 
 {% endblock %}
