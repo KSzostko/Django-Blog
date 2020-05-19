@@ -3,20 +3,24 @@
 {% block title %} {{ object.title }} {% endblock %}
 
 {% block content %}
+
+{% if not user.is_authenticated and object.auth_required %}
+<p class="info">You have to be a Member to see this Post</p>
+{% else %}
 <section class="from">
     <span class="from__content">{{ object.blog }} → {{ object.title }}</span>
+
+    <article class="post post--full">
+        <div class="post__hero">
+            <img class="post__image" src="{{ object.image.url }}" alt="post header">
+        </div>
+        <h4 class="post__title post__title--full">{{ object.title }}</h4>
+        <span class="created">{{ object.published_date }}</span>
+        <p class="post__text">{{ object.text_content }}</p>
+        <a class="button" href="{% url 'post_comments' pk=object.pk %}">View comments ({{ object.comments.count }})</a>
+        <a class="button post__back" href="{% url 'blog_detail' pk=object.blog.pk %}">Go back</a>
+    </article>
 </section>
-
-<article class="post post--full">
-    <div class="post__hero">
-        <img class="post__image" src="{{ object.image.url }}" alt="post header">
-    </div>
-    <h4 class="post__title post__title--full">{{ object.title }}</h4>
-    <span class="created">{{ object.published_date }}</span>
-    <p class="post__text">{{ object.text_content }}</p>
-    <a class="button" href="{% url 'post_comments' pk=object.pk %}">View comments ({{ object.comments.count }})</a>
-    <a class="button post__back" href="{% url 'blog_detail' pk=object.blog.pk %}">Go back</a>
-</article>
-
+{% endif %}
 
 {% endblock %}
