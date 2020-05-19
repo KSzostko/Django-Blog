@@ -172,6 +172,14 @@ body {
     color: rgb(170, 170, 170);
 }
 
+.nav__link i {
+    margin-right: 5px;
+}
+
+.nav__link .username {
+    font-size: 14px;
+}
+
 header {
     height: 80vh;
     background-image: url('../img/social-media-1989152_1920.jpg');
