@@ -20,12 +20,23 @@
         </div>
     </div>
 
-
     {% endfor %}
 
     {% else %}
     <p class="info">There are no comments yet, be first to comment!</p>
     {% endif %}
+
+    <div class="form-wrapper form-wrapper--comments">
+        <h3 class="form__header form__header--comments">Leave a comment</h3>
+        <form class="form" action="{% url 'post_comments' pk=object.pk %}" method="POST">
+            {% csrf_token %}
+            <p>
+                <label for="message">Message:</label>
+                <textarea name="message"></textarea>
+            </p>
+            <button class="button" type="submit">Send</button>
+        </form>
+    </div>
 
     <a class="button comments__button" href="{% url 'post_detail' pk=object.pk %}">Go back</a>
 </section>

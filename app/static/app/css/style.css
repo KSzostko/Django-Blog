@@ -499,7 +499,7 @@ footer {
 }
 
 .comments__button {
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 /* forms */
@@ -509,6 +509,11 @@ footer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.form-wrapper--comments {
+    justify-content: start;
+    margin-bottom: 0;
 }
 
 .form-wrapper--login {
@@ -522,6 +527,12 @@ footer {
     font-size: 40px;
     text-transform: uppercase;
     margin-bottom: 20px;
+}
+
+.form__header--comments {
+    margin-bottom: 0;
+    font-size: 26px;
+    text-align: left;
 }
 
 .form {
