@@ -30,10 +30,7 @@
         <h3 class="form__header form__header--comments">Leave a comment</h3>
         <form class="form" action="{% url 'post_comments' pk=object.pk %}" method="POST">
             {% csrf_token %}
-            <p>
-                <label for="message">Message:</label>
-                <textarea name="message"></textarea>
-            </p>
+            {{ form.as_p }}
             <button class="button" type="submit">Send</button>
         </form>
     </div>

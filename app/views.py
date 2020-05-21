@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from django.views import generic
-from django.urls import reverse_lazy
+from django.utils import timezone
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Blog, Post, Comment, User
-from .forms import PostForm, BlogForm, UserForm
+from .forms import PostForm, BlogForm, UserForm, CommentForm
 
 # Create your views here.
 
@@ -79,9 +81,26 @@ class PostDetailView(generic.DetailView):
     template_name = 'post_detail.html'
 
 
-class PostCommentsView(generic.DetailView):
-    model = Post
-    template_name = 'post_comments.html'
+@login_required
+def add_comment(request, pk):
+    user = User.objects.get(pk=request.user.pk)
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+
+            comment.post = post
+            comment.author = user
+            comment.save()
+
+            return redirect('post_detail', pk=pk)
+    else:
+        form = CommentForm()
+
+    return render(request, 'post_comments.html', {'object': post, 'form': form})
 
 
 class ThanksView(generic.TemplateView):

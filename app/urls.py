@@ -16,5 +16,5 @@ urlpatterns = [
     path('blog/<int:pk>/post/', views.add_post, name='post_new'),
     path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
     path('post/<int:pk>/comments/',
-         views.PostCommentsView.as_view(), name='post_comments'),
+         views.add_comment, name='post_comments'),
 ]
