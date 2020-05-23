@@ -25,7 +25,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     intro = models.TextField(default='')
     text_content = models.TextField()
-    image = models.ImageField(blank=True, upload_to='')
+    image = models.ImageField(upload_to='', default='default-header.jpg')
     auth_required = models.BooleanField(default=False)
     published_date = models.DateTimeField(default=timezone.now)
 

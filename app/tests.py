@@ -11,6 +11,10 @@ def create_blog(user, title, description):
     return models.Blog.objects.create(creator=user, title=title, description=description)
 
 
+def create_post(blog, author, title, text_content, auth_required):
+    return models.Post.objects.create(blog=blog, author=author, title=title, text_content=text_content, auth_required=auth_required)
+
+
 class BlogModelTests(TestCase):
 
     def test_no_blogs(self):
@@ -64,3 +68,34 @@ class BlogModelTests(TestCase):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Blog description')
+
+
+class PostModelTests(TestCase):
+
+    def test_no_posts(self):
+        """
+        If there's no posts on a blog, an appropriate message is displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        response = self.client.get(reverse('blog_detail', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, 'Currently, there are no posts created yet')
+
+    def test_one_post(self):
+        """
+        If there's a post on the blog, info about it will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        create_post(blog, user, 'Post title', 'Post content', False)
+
+        response = self.client.get(reverse('blog_detail', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(
+            response.context['object'].post_set.all(),
+            ['<Post: Blog title: Post title>'],
+        )
