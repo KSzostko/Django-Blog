@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load static %}
 
 {% block title %} Post comments {% endblock %}
 
@@ -12,7 +13,7 @@
     {% for comment in object.comments.all %}
 
     <div class="comment">
-        <img class="comment__avatar" src="{{ comment.author.photo.url }}" alt="comment author avatart">
+        <img class="comment__avatar" src="{% static 'app/img/user.png' %}" alt="comment author">
         <div class="comment__content">
             <span class="comment__author">{{ comment.author.username }}</span>
             <span class="created comment__date">{{ comment.published_date }}</span>

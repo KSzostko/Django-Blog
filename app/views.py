@@ -5,7 +5,8 @@ from django.utils import timezone
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Blog, Post, Comment, User
+from .models import Blog, Post, Comment
+from django.contrib.auth.models import User
 from .forms import PostForm, BlogForm, UserForm, CommentForm
 
 # Create your views here.
@@ -39,7 +40,7 @@ def add_post(request, pk):
 
 def create_user(request):
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES)
+        form = UserForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -61,7 +62,7 @@ def create_blog(request):
     user = User.objects.get(pk=request.user.pk)
 
     if request.method == 'POST':
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES)
 
         if form.is_valid():
             blog = form.save(commit=False)
