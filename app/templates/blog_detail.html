@@ -52,6 +52,8 @@
             <p class="post__intro">{{ post.intro }}</p>
             <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
         </article>
+        {% else %}
+        <p class="info">Login to see more posts</p>
         {% endif %}
 
         {% endif %}

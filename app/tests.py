@@ -99,3 +99,18 @@ class PostModelTests(TestCase):
             response.context['object'].post_set.all(),
             ['<Post: Blog title: Post title>'],
         )
+
+    def test_one_auth_post_user_not_logged(self):
+        """
+        If there's a private post on the blog (auth_required=True),
+        not authenticated user wont' see it
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        create_post(blog, user, 'Post title', 'Post content', True)
+
+        response = self.client.get(reverse('blog_detail', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, 'Login to see more posts')
