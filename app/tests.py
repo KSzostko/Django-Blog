@@ -5,7 +5,7 @@ from . import models
 
 
 def create_user(username):
-    return models.User.objects.create(username=username, password='testpassword')
+    return User.objects.create_user(username=username, password='testpassword')
 
 
 def create_blog(user, title, description):
@@ -185,17 +185,24 @@ class PostModelTests(TestCase):
         self.client.login(username='anon', password='testpassword')
         response = self.client.get(reverse('blog_detail', args=(blog.id,)))
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, 'New Post')
+        self.assertNotContains(
+            response,
+            f'<a class="button post__button" href="/blog/{blog.id}/post/">New Post</a>',
+            html=True,
+        )
 
     def test_creator_add_post(self):
         """
         If authenticated user is blog creator, he will see button for adding new post
         """
-        user = User.objects.create_user(
-            username='anon', password='testpassword')
+        user = create_user('anon')
         blog = create_blog(user, 'Blog title', 'Blog description')
 
         self.client.login(username='anon', password='testpassword')
         response = self.client.get(reverse('blog_detail', args=(blog.id,)))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'New Post')
+        self.assertContains(
+            response,
+            f'<a class="button post__button" href="/blog/{blog.id}/post/">New Post</a>',
+            html=True,
+        )
