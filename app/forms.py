@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from captcha.fields import CaptchaField
 from .models import Post, Blog, User, Comment
 
 
@@ -23,6 +24,7 @@ class BlogForm(forms.ModelForm):
 
 
 class UserForm(UserCreationForm):
+    captcha = CaptchaField()
 
     class Meta():
         model = User
