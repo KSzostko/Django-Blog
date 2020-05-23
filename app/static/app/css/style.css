@@ -552,6 +552,7 @@ footer {
 }
 
 .form input[type="text"],
+.form input[type="email"],
 .form input[type="password"],
 .form textarea {
     width: 100%;
@@ -561,6 +562,7 @@ footer {
 }
 
 .form input[type="text"]:focus,
+.form input[type="email"]:focus,
 .form input[type="password"]:focus,
 .form textarea:focus {
     border-color: #252b2d;
