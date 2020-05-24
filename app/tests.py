@@ -16,6 +16,10 @@ def create_post(blog, author, title, text_content, auth_required):
     return models.Post.objects.create(blog=blog, author=author, title=title, text_content=text_content, auth_required=auth_required)
 
 
+def create_comment(post, author, text_content):
+    return models.Comment.objects.create(post=post, author=author, text_content=text_content)
+
+
 class BlogModelTests(TestCase):
 
     def test_no_blogs(self):
@@ -235,3 +239,32 @@ class PostModelTests(TestCase):
         response = self.client.get(reverse('blog_detail', args=(blog.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['object'].post_set.count(), 2)
+
+    def test_no_comments(self):
+        """
+        If post has no comments, an appropriate message is displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get(reverse('post_comments', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, 'There are no comments yet, be first to comment!')
+
+    def test_comments_count(self):
+        """
+        If we add comments to a post, post comments count should be updated
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        create_comment(post, user, 'Comment content')
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get(reverse('post_comments', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['object'].comments.count(), 1)
