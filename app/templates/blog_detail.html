@@ -65,7 +65,7 @@
         <p class="info">Currently, there are no posts created yet</p>
         {% endif %}
 
-        {% if user.username == object.creator.username %}
+        {% if user == object.creator %}
         <a class="button post__button" href="{% url 'post_new' pk=object.pk %}">New Post</a>
         {% endif %}
     </div>
