@@ -206,3 +206,32 @@ class PostModelTests(TestCase):
             f'<a class="button post__button" href="/blog/{blog.id}/post/">New Post</a>',
             html=True,
         )
+
+    def test_post_count_not_auth(self):
+        """
+        If we add some posts, count should be updated
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        create_post(blog, user, 'Post title', 'Post content', True)
+        create_post(blog, user, 'Second title', 'Second Post content', True)
+
+        response = self.client.get(reverse('blog_detail', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['object'].post_set.count(), 2)
+
+    def test_post_count_one_auth_one_not_user_not_logged(self):
+        """
+        If we add private and non-private post and user is not logged,
+        user will see only 1 post, but post count is still 2
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        create_post(blog, user, 'Post title', 'Post content', True)
+        create_post(blog, user, 'Second title', 'Second Post content', False)
+
+        response = self.client.get(reverse('blog_detail', args=(blog.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['object'].post_set.count(), 2)
