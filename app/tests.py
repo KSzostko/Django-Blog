@@ -242,17 +242,16 @@ class PostModelTests(TestCase):
 
     def test_no_comments(self):
         """
-        If post has no comments, an appropriate message is displayed
+        If post has no comments, comment count is 0
         """
         user = create_user('anon')
         blog = create_blog(user, 'Blog title', 'Blog description')
         post = create_post(blog, user, 'Post title', 'Post content', True)
 
         self.client.login(username='anon', password='testpassword')
-        response = self.client.get(reverse('post_comments', args=(blog.id,)))
+        response = self.client.get(reverse('post_detail', args=(post.id,)))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(
-            response, 'There are no comments yet, be first to comment!')
+        self.assertEqual(response.context['object'].comments.count(), 0)
 
     def test_comments_count(self):
         """
@@ -265,6 +264,43 @@ class PostModelTests(TestCase):
         create_comment(post, user, 'Comment content')
 
         self.client.login(username='anon', password='testpassword')
-        response = self.client.get(reverse('post_comments', args=(blog.id,)))
+        response = self.client.get(reverse('post_detail', args=(post.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['object'].comments.count(), 1)
+
+
+class CommentModelTests(TestCase):
+
+    def test_no_comments(self):
+        """
+        If there's no comments, an appropriate message is displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        # create_comment(post, user, 'Comment content')
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get(reverse('post_comments', args=(post.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, 'There are no comments yet, be first to comment!')
+
+    def test_one_comment(self):
+        """
+        If there's no comments, an appropriate message is displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        create_comment(post, user, 'Comment content')
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get(reverse('post_comments', args=(post.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(
+            response.context['object'].comments.all(),
+            ['<Comment: Blog title: Post title Comment content>'],
+        )
