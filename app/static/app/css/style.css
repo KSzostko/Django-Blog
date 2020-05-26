@@ -626,3 +626,7 @@ footer {
 .search__button {
     border-radius: 0;
 }
+
+.posts--search .post {
+    margin-bottom: 40px;
+}

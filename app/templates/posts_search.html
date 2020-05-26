@@ -3,14 +3,43 @@
 {% block title %} Search results {% endblock %}
 
 {% block content %}
-<h1 style="font-weight: 700; font-size: 50px;">This is search results</h1>
-<ul>
+<div class="posts posts--search">
+    <h3 class="posts__header">Search results</h3>
+    {% if object_list.count %}
+
     {% for post in object_list %}
 
-    <li>
-        {{ post.title }} {{ post.blog.title }}
-    </li>
+    {% if user.is_authenticated %}
+    <article class="post">
+        <div class="post__header">
+            <img class="post__image" src="{{ post.image.url }}" alt="post header">
+        </div>
+        <h4 class="post__title">{{ post.title }}</h4>
+        <span class="created">{{ post.published_date }}</span>
+        <p class="post__intro">{{ post.intro }}</p>
+        <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
+    </article>
+    {% else %}
+
+    {% if not post.auth_required %}
+    <article class="post">
+        <div class="post__header">
+            <img class="post__image" src="{{ post.image.url }}" alt="post header">
+        </div>
+        <h4 class="post__title">{{ post.title }}</h4>
+        <span class="created">{{ post.published_date }}</span>
+        <p class="post__intro">{{ post.intro }}</p>
+        <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
+    </article>
+    {% endif %}
+
+    {% endif %}
 
     {% endfor %}
-</ul>
+
+    {% else %}
+
+    <p class="info">No matches found, please try again or login to see private posts</p>
+    {% endif %}
+</div>
 {% endblock %}
