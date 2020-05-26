@@ -6,6 +6,23 @@
 <section class="blogs">
     <h2 class="blogs__header">Check out our blogs</h2>
 
+    <div class="search">
+        <form action="{% url 'search_results' %}" method="GET">
+            <input name="title" type="text" placeholder="Post title">
+            <select name="blog" id="blog-select">
+                <option value="">Choose blog</option>
+                {% for blog in blog_list %}
+                <option value="{{ blog.id }}">{{ blog.title }}</option>
+                {% endfor %}
+            </select>
+            <select name="auth" id="auth-select">
+                <option value="False">Public</option>
+                <option value="True">Private</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
     {% if blog_list %}
     <div class="blog-list">
         {% for blog in blog_list %}

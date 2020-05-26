@@ -86,6 +86,10 @@ class SearchPostsView(generic.ListView):
     model = Post
     template_name = 'posts_search.html'
 
+    def get_queryset(self):
+        title = self.request.GET.get('title')
+        return Post.objects.filter(title__icontains=title)
+
 
 @login_required
 def add_comment(request, pk):
