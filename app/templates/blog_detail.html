@@ -53,7 +53,7 @@
             <a class="button" href="{% url 'post_detail' pk=post.pk %}">View more</a>
         </article>
         {% else %}
-        <p class="info">Login to see more posts</p>
+        <p class="info info--post">Only logged members can see post: {{ post.title }}</p>
         {% endif %}
 
         {% endif %}
