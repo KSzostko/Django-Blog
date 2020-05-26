@@ -88,7 +88,35 @@ class SearchPostsView(generic.ListView):
 
     def get_queryset(self):
         title = self.request.GET.get('title')
-        return Post.objects.filter(title__icontains=title)
+        blog = self.request.GET.get('blog')
+        auth = self.request.GET.get('auth')
+
+        objects = Post.objects.all()
+
+        if blog == '':
+            if auth == 'both':
+                return Post.objects.filter(
+                    title__icontains=title,
+                )
+            else:
+                auth = auth == 'True'
+                return Post.objects.filter(
+                    title__icontains=title,
+                    auth_required=auth
+                )
+        else:
+            if auth == 'both':
+                return Post.objects.filter(
+                    title__icontains=title,
+                    blog__id=blog,
+                )
+            else:
+                auth = auth == 'True'
+                return Post.objects.filter(
+                    title__icontains=title,
+                    blog__id=blog,
+                    auth_required=auth
+                )
 
 
 @login_required
