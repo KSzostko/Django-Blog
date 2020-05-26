@@ -239,7 +239,7 @@ footer {
 
 .blogs__header {
     padding: 40px 0 20px 60px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     font-size: 35px;
     text-transform: uppercase;
     border-bottom: 1px solid #DDD;
@@ -602,4 +602,27 @@ footer {
 
 .form-wrapper--login ul.errorlist {
     display: none;
+}
+
+/* search bar */
+.search {
+    padding: 20px;
+    margin-bottom: 60px;
+    background-color: #F8F8F8;
+}
+
+.search form {
+    display: flex;
+    justify-content: center;
+}
+
+.search select,
+.search input {
+    font-family: 'Montserrat';
+    border: 1px solid rgba(187, 144, 75, 0.9);
+    padding: 10px 5px;
+}
+
+.search__button {
+    border-radius: 0;
 }
