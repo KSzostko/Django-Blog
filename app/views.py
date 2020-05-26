@@ -82,6 +82,11 @@ class PostDetailView(generic.DetailView):
     template_name = 'post_detail.html'
 
 
+class SearchPostsView(generic.ListView):
+    model = Post
+    template_name = 'posts_search.html'
+
+
 @login_required
 def add_comment(request, pk):
     user = User.objects.get(pk=request.user.pk)
