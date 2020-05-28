@@ -118,7 +118,7 @@ class PostModelTests(TestCase):
         response = self.client.get(reverse('blog_detail', args=(blog.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertContains(
-            response, 'Login to see more posts')
+            response, 'Only logged members can see post')
 
     def test_one_auth_post_one_not_user_not_logged(self):
         """
@@ -135,8 +135,8 @@ class PostModelTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response, 'Second title')
-        self.assertNotContains(
-            response, 'Post title')
+        self.assertContains(
+            response, 'Only logged members can see post: Post title')
 
     def test_one_auth_post_user_logged(self):
         """
