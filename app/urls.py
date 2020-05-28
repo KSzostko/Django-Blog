@@ -9,7 +9,7 @@ urlpatterns = [
     path('test', views.TestView.as_view(), name='test'),
     path('signup/', views.create_user, name='signup'),
     path('accounts/login/',
-         auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+         auth_views.LoginView.as_view(template_name='app/login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(),
          name='logout', kwargs={'next_page': '/'}),
     path('blog/<int:pk>/', views.BlogDetailView.as_view(), name='blog_detail'),
