@@ -14,7 +14,7 @@ from .forms import PostForm, BlogForm, UserForm, CommentForm
 
 def index(request):
     context = {'blog_list': Blog.objects.all()}
-    return render(request, 'index.html', context=context)
+    return render(request, 'app/index.html', context=context)
 
 
 @login_required
@@ -35,7 +35,7 @@ def add_post(request, pk):
     else:
         form = PostForm()
 
-    return render(request, 'post_form.html', context={'form': form, 'author': blog.creator})
+    return render(request, 'app/post_form.html', context={'form': form, 'author': blog.creator})
 
 
 def create_user(request):
@@ -49,12 +49,12 @@ def create_user(request):
     else:
         form = UserForm()
 
-    return render(request, 'signup.html', context={'form': form})
+    return render(request, 'app/signup.html', context={'form': form})
 
 
 class BlogDetailView(generic.DetailView):
     model = Blog
-    template_name = 'blog_detail.html'
+    template_name = 'app/blog_detail.html'
 
 
 @login_required
@@ -74,12 +74,12 @@ def create_blog(request):
     else:
         form = BlogForm()
 
-    return render(request, 'blog_form.html', context={'form': form})
+    return render(request, 'app/blog_form.html', context={'form': form})
 
 
 class PostDetailView(generic.DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'app/post_detail.html'
 
 
 class UpdatePostView(LoginRequiredMixin, generic.UpdateView):
@@ -92,9 +92,16 @@ class UpdatePostView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy('post_detail', kwargs={'pk': self.kwargs.get('pk')})
 
 
+class DeletePostView(LoginRequiredMixin, generic.DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.object.blog.pk})
+
+
 class SearchPostsView(generic.ListView):
     model = Post
-    template_name = 'posts_search.html'
+    template_name = 'app/posts_search.html'
 
     def get_queryset(self):
         title = self.request.GET.get('title')
@@ -148,12 +155,12 @@ def add_comment(request, pk):
     else:
         form = CommentForm()
 
-    return render(request, 'post_comments.html', {'object': post, 'form': form})
+    return render(request, 'app/post_comments.html', {'object': post, 'form': form})
 
 
 class ThanksView(generic.TemplateView):
-    template_name = 'thanks.html'
+    template_name = 'app/thanks.html'
 
 
 class TestView(generic.TemplateView):
-    template_name = 'test.html'
+    template_name = 'app/test.html'

@@ -6,7 +6,7 @@
 
 {% if object.author == user  %}
 <div class="form-wrapper">
-    <h2 class="form__header">Create Post</h2>
+    <h2 class="form__header">Edit Post</h2>
     <form class="form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

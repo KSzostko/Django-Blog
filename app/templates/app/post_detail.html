@@ -19,7 +19,7 @@
         <p class="post__text">{{ object.text_content }}</p>
         <div class="post__options">
             <a class="button" href="{% url 'post_edit' pk=object.pk %}">Edit</a>
-            <!-- <a class="button" href="{% url 'post_comments' pk=object.pk %}">Remove</a> -->
+            <a class="button" href="{% url 'post_remove' pk=object.pk %}">Remove</a>
         </div>
         <a class="button" href="{% url 'post_comments' pk=object.pk %}">View comments ({{ object.comments.count }})</a>
         <a class="button post__back" href="{% url 'blog_detail' pk=object.blog.pk %}">Go back</a>
