@@ -93,10 +93,12 @@ class UpdatePostView(LoginRequiredMixin, generic.UpdateView):
 
 
 class DeletePostView(LoginRequiredMixin, generic.DeleteView):
+    login_url = '/login/'
     model = Post
 
     def get_success_url(self):
-        return reverse_lazy('post_detail', kwargs={'pk': self.object.blog.pk})
+        post = super().get_object()
+        return reverse_lazy('blog_detail', kwargs={'pk': post.blog.pk})
 
 
 class SearchPostsView(generic.ListView):

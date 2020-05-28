@@ -412,7 +412,8 @@ footer {
     margin-bottom: 20px;
 }
 
-.post__back {
+.post__back,
+.post__remove {
     margin-left: 20px;
 }
 
@@ -549,6 +550,22 @@ footer {
     flex-direction: column;
     padding: 20px 30px;
     color: #252b2d;
+}
+
+.form--delete {
+    padding: 60px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form__header--delete {
+    flex-basis: 100%;
+    font-size: 24px;
+}
+
+.button--delete {
+    align-self: center;
 }
 
 .form p {
