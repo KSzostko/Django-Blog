@@ -454,6 +454,10 @@ footer {
     line-height: 1.5;
 }
 
+.post__options {
+    margin-bottom: 20px;
+}
+
 .from {
     border-bottom: 1px solid #DDD;
     padding: 10px;

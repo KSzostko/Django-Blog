@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% block title %} Create Post {% endblock %}
+
+{% block content %}
+
+{% if object.author == user  %}
+<div class="form-wrapper">
+    <h2 class="form__header">Create Post</h2>
+    <form class="form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Send</button>
+    </form>
+</div>
+{% else %}
+<p class="info">Only Blog creator can edit posts</p>
+{% endif %}
+
+{% endblock %}

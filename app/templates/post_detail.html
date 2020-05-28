@@ -17,6 +17,10 @@
         <h4 class="post__title post__title--full">{{ object.title }}</h4>
         <span class="created">{{ object.published_date }}</span>
         <p class="post__text">{{ object.text_content }}</p>
+        <div class="post__options">
+            <a class="button" href="{% url 'post_edit' pk=object.pk %}">Edit</a>
+            <!-- <a class="button" href="{% url 'post_comments' pk=object.pk %}">Remove</a> -->
+        </div>
         <a class="button" href="{% url 'post_comments' pk=object.pk %}">View comments ({{ object.comments.count }})</a>
         <a class="button post__back" href="{% url 'blog_detail' pk=object.blog.pk %}">Go back</a>
     </article>

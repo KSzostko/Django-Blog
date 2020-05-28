@@ -82,6 +82,16 @@ class PostDetailView(generic.DetailView):
     template_name = 'post_detail.html'
 
 
+class UpdatePostView(LoginRequiredMixin, generic.UpdateView):
+    login_url = '/login/'
+    model = Post
+    form_class = PostForm
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.kwargs.get('pk')})
+
+
 class SearchPostsView(generic.ListView):
     model = Post
     template_name = 'posts_search.html'
