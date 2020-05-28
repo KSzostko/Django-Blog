@@ -624,8 +624,12 @@ footer {
 .search select,
 .search input {
     font-family: 'Montserrat';
-    border: 1px solid rgba(187, 144, 75, 0.9);
+    border-style: none;
     padding: 10px 5px;
+}
+
+.search input {
+    border-right: 1px solid #BBB;
 }
 
 .search__button {
