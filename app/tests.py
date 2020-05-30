@@ -282,8 +282,6 @@ class PostCommentsViewTests(TestCase):
         blog = create_blog(user, 'Blog title', 'Blog description')
         post = create_post(blog, user, 'Post title', 'Post content', True)
 
-        # create_comment(post, user, 'Comment content')
-
         self.client.login(username='anon', password='testpassword')
         response = self.client.get(reverse('post_comments', args=(post.id,)))
         self.assertEqual(response.status_code, 200)
@@ -332,7 +330,7 @@ class BlogFormTests(TestCase):
 
     def test_blank_data(self):
         """
-        If all both form fields are blank, form is not valid
+        If both form fields are blank, form is not valid
         """
         form = forms.BlogForm({})
         self.assertFalse(form.is_valid())
@@ -353,7 +351,7 @@ class BlogFormTests(TestCase):
             'title': ['This field is required.'],
         })
 
-    def test_blank_title_data(self):
+    def test_blank_description_data(self):
         """
         If title description field is blank, form is not valid
         """
@@ -391,9 +389,115 @@ class CommentFormTests(TestCase):
 
     def test_blank_data(self):
         """
-        If text_conten field are blank, form is not valid
+        If text_content field are blank, form is not valid
         """
         form = forms.CommentForm({})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'text_content': ['This field is required.'],
+        })
+
+
+class PostFormTests(TestCase):
+
+    def test_valid_data_auth_required_given(self):
+        """
+        If all the data in the form are correct, form.is_valid() should be True
+        """
+        form = forms.PostForm({
+            'title': 'Post title',
+            'intro': 'Post intro',
+            'text_content': 'Post content',
+            'auth_required': True
+        })
+        self.assertTrue(form.is_valid())
+
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        post = form.save(commit=False)
+        post.blog = blog
+        post.author = user
+        post.save()
+        self.assertEqual(post.blog.title, 'Blog title')
+        self.assertEqual(post.author.username, 'anon')
+        self.assertEqual(post.title, 'Post title')
+        self.assertEqual(post.intro, 'Post intro')
+        self.assertEqual(post.text_content, 'Post content')
+        self.assertEqual(post.auth_required, True)
+
+    def test_valid_data_auth_required_blank(self):
+        """
+        If all the data in the form are correct, form.is_valid() should be True
+        when the field with auth_required is blank, the value of it should be False
+        """
+        form = forms.PostForm({
+            'title': 'Post title',
+            'intro': 'Post intro',
+            'text_content': 'Post content',
+        })
+        self.assertTrue(form.is_valid())
+
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+
+        post = form.save(commit=False)
+        post.blog = blog
+        post.author = user
+        post.save()
+        self.assertEqual(post.blog.title, 'Blog title')
+        self.assertEqual(post.author.username, 'anon')
+        self.assertEqual(post.title, 'Post title')
+        self.assertEqual(post.intro, 'Post intro')
+        self.assertEqual(post.text_content, 'Post content')
+        self.assertEqual(post.auth_required, False)
+
+    def test_blank_data(self):
+        """
+        If all form fields are blank, form is not valid
+        """
+        form = forms.PostForm({})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'title': ['This field is required.'],
+            'intro': ['This field is required.'],
+            'text_content': ['This field is required.'],
+        })
+
+    def test_blank_title_data(self):
+        """
+        If title field is blank, form is not valid
+        """
+        form = forms.PostForm({
+            'intro': 'afffasd',
+            'text_content': 'afffasd',
+        })
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'title': ['This field is required.'],
+        })
+
+    def test_blank_intro_data(self):
+        """
+        If intro field is blank, form is not valid
+        """
+        form = forms.PostForm({
+            'title': 'afffasd',
+            'text_content': 'afffasd',
+        })
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'intro': ['This field is required.'],
+        })
+
+    def test_blank_text_content_data(self):
+        """
+        If text_content field is blank, form is not valid
+        """
+        form = forms.PostForm({
+            'title': 'afffasd',
+            'intro': 'afffasd',
+        })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors, {
             'text_content': ['This field is required.'],
