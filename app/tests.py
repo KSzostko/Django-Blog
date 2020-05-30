@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
 from . import models
+from . import forms
 
 
 def create_user(username):
@@ -306,3 +307,61 @@ class PostCommentsViewTests(TestCase):
             response.context['object'].comments.all(),
             ['<Comment: Blog title: Post title Comment content>'],
         )
+
+
+class BlogFormTests(TestCase):
+
+    def test_valid_data(self):
+        """
+        If all the data in the form are correct, form.is_valid() should be True
+        and Blog object should be
+        """
+        form = forms.BlogForm({
+            'title': 'Blog title',
+            'description': 'Blog description'
+        })
+        self.assertTrue(form.is_valid())
+
+        user = create_user(username='anon')
+
+        blog = form.save(commit=False)
+        blog.creator = user
+        blog.save()
+        self.assertEqual(blog.creator.username, 'anon')
+        self.assertEqual(blog.title, 'Blog title')
+        self.assertEqual(blog.description, 'Blog description')
+
+    def test_blank_data(self):
+        """
+        If all both form fields are blank, form is not valid
+        """
+        form = forms.BlogForm({})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'title': ['This field is required.'],
+            'description': ['This field is required.'],
+        })
+
+    def test_blank_title_data(self):
+        """
+        If title field is blank, form is not valid
+        """
+        form = forms.BlogForm({
+            'description': 'Blog description'
+        })
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'title': ['This field is required.'],
+        })
+
+    def test_blank_title_data(self):
+        """
+        If title description field is blank, form is not valid
+        """
+        form = forms.BlogForm({
+            'title': 'Blog title'
+        })
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'description': ['This field is required.'],
+        })
