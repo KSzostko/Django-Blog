@@ -20,7 +20,7 @@ def create_comment(post, author, text_content):
     return models.Comment.objects.create(post=post, author=author, text_content=text_content)
 
 
-class BlogModelTests(TestCase):
+class IndexViewTests(TestCase):
 
     def test_no_blogs(self):
         """
@@ -75,8 +75,7 @@ class BlogModelTests(TestCase):
         self.assertContains(response, 'Blog description')
 
 
-class PostModelTests(TestCase):
-
+class BlogDetailViewTests(TestCase):
     def test_no_posts(self):
         """
         If there's no posts on a blog, an appropriate message is displayed
@@ -240,6 +239,9 @@ class PostModelTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['object'].post_set.count(), 2)
 
+
+class PostDetailViewTests(TestCase):
+
     def test_no_comments(self):
         """
         If post has no comments, comment count is 0
@@ -269,7 +271,7 @@ class PostModelTests(TestCase):
         self.assertEqual(response.context['object'].comments.count(), 1)
 
 
-class CommentModelTests(TestCase):
+class PostCommentsViewTests(TestCase):
 
     def test_no_comments(self):
         """
@@ -289,7 +291,7 @@ class CommentModelTests(TestCase):
 
     def test_one_comment(self):
         """
-        If there's no comments, an appropriate message is displayed
+        If there's one comment, we should see it
         """
         user = create_user('anon')
         blog = create_blog(user, 'Blog title', 'Blog description')
