@@ -314,7 +314,6 @@ class BlogFormTests(TestCase):
     def test_valid_data(self):
         """
         If all the data in the form are correct, form.is_valid() should be True
-        and Blog object should be
         """
         form = forms.BlogForm({
             'title': 'Blog title',
@@ -364,4 +363,38 @@ class BlogFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors, {
             'description': ['This field is required.'],
+        })
+
+
+class CommentFormTests(TestCase):
+
+    def test_valid_data(self):
+        """
+        If all the data in the form are correct, form.is_valid() should be True
+        """
+        form = forms.CommentForm({
+            'text_content': 'Comment content',
+        })
+        self.assertTrue(form.is_valid())
+
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.author = user
+        comment.save()
+        self.assertEqual(comment.post.title, 'Post title')
+        self.assertEqual(comment.author.username, 'anon')
+        self.assertEqual(comment.text_content, 'Comment content')
+
+    def test_blank_data(self):
+        """
+        If text_conten field are blank, form is not valid
+        """
+        form = forms.CommentForm({})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {
+            'text_content': ['This field is required.'],
         })
