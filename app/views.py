@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from .models import Blog, Post, Comment
 from django.contrib.auth.models import User
 from .forms import PostForm, BlogForm, UserForm, CommentForm
@@ -43,7 +44,13 @@ def create_user(request):
         form = UserForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            user = form.save()
+            # send_mail(
+            #     'Welcome!',
+            #     'Welcome to our fantastic Bloggers Community! We hope you will stay here for a while',
+            #     'email host',
+            #     [user.email, ],
+            # )
 
             return redirect('index')
     else:

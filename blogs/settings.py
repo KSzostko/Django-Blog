@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -127,3 +126,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = 'test'
 LOGOUT_REDIRECT_URL = 'thanks'
+
+# configuration for sending emails
+# account created only for puprose of this project
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_PASSWORD = ''
