@@ -27,13 +27,11 @@
         {% if object.post_set.count %}
 
         {% for post in object.post_set.all %}
-        <!-- TODO add search bar and implement post searching -->
 
         {% if user.is_authenticated %}
         <article class="post">
             <div class="post__header">
                 <img class="post__image" src="{{ post.image.url }}" alt="post header">
-                <!-- TODO utils function for better date display -->
             </div>
             <h4 class="post__title">{{ post.title }}</h4>
             <span class="created">{{ post.published_date }}</span>
