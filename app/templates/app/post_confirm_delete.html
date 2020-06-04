@@ -4,7 +4,6 @@
 
 {% block content %}
 
-{{ object.pk }}
 <form class="form form--delete" method="POST">
     {% csrf_token %}
     <p class="form__header form__header--delete">Are you sure you want to delete this post?</p>
