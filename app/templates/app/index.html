@@ -31,8 +31,10 @@
             <h2 class="blog__title">{{ blog.title }}</h2>
             <div class="blog__text">
                 <p class="blog__description">{{ blog.description }}</p>
-                <a href="{% url 'blog_detail' pk=blog.pk %}" class="button">View</a>
-                <span class="blog__author">created by: {{ blog.creator.username }}</span>
+                <div class="blog__info">
+                    <a href="{% url 'blog_detail' pk=blog.pk %}" class="button">View</a>
+                    <span class="blog__author">created by: {{ blog.creator.username }}</span>
+                </div>
             </div>
         </div>
         {% endfor %}
