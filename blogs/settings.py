@@ -25,6 +25,18 @@ SECRET_KEY = 'ab4f8rxax)#p3fnhc^_qm0^4t*=u72)+5ryg-kycg0j2&(6o^b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Security settings for production
+# CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SAMESITE = 'Strict'
+# SESSION_COOKIE_SECURE = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_SSL_REDIRECT = True
+# X_FRAME_OPTIONS = 'Deny'
+# SECURE_HSTS_SECONDS = 15768000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+
 ALLOWED_HOSTS = []
 
 
