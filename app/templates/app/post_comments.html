@@ -6,7 +6,8 @@
 {% block content %}
 
 <section class="comments">
-    <h2 class="comments__header">There are {{ object.comments.count }} comments</h2>
+    <h2 class="comments__header">There {% if object.comments.count == 1 %}is {% else %}are
+        {% endif %}{{ object.comments.count }} comment{% if object.comments.count != 1 %}s{% endif %}</h2>
 
     {% if object.comments.count %}
 
