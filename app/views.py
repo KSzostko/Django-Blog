@@ -52,7 +52,7 @@ def create_user(request):
             #     [user.email, ],
             # )
 
-            return redirect('index')
+            return redirect('login')
     else:
         form = UserForm()
 
