@@ -469,6 +469,72 @@ class PostsSearchViewTests(TestCase):
         )
         self.assertContains(response, 'No matches found, please try again')
 
+    def test_search_blog_post_same_blog(self):
+        """
+        If there's specified blog in the criteria(in query string will be displayed blog id), 
+        and this blog contains post, this post will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+
+        response = self.client.get(f'/search/?title=&blog={blog.id}&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+
+    def test_search_blog_post_different_blog(self):
+        """
+        If there's specified blog in the criteria(in query string will be displayed blog id), 
+        and this blog does not contains post, no post will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        blog2 = create_blog(user, 'Blog title2', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+
+        response = self.client.get(
+            f'/search/?title=&blog={blog2.id}&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertContains(response, 'No matches found, please try again')
+
+    def test_search_blog_default_two_blogs(self):
+        """
+        If there's not specified blog in the criteria,
+        posts form every blog will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        blog2 = create_blog(user, 'Blog title2', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+        post2 = create_post(blog, user, 'Post title2', 'Post content', False)
+
+        response = self.client.get(
+            f'/search/?title=&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'No matches found, please try again')
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post2.title}</h4>',
+            html=True,
+        )
+
 
 class BlogFormTests(TestCase):
 
