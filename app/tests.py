@@ -535,6 +535,87 @@ class PostsSearchViewTests(TestCase):
             html=True,
         )
 
+    def test_search_title_post_contains_phrase(self):
+        """
+        If there's specfied phrase for searching in title, and posts will contain this phrase
+        every post will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        blog2 = create_blog(user, 'Blog title2', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+        post2 = create_post(blog, user, 'Post title2', 'Post content', False)
+
+        response = self.client.get(
+            f'/search/?title=Post&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'No matches found, please try again')
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post2.title}</h4>',
+            html=True,
+        )
+
+    def test_search_title_one_post_contains_phrase_one_not(self):
+        """
+        If there's specfied phrase for searching in title, 
+        only posts which contain this phrase will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        blog2 = create_blog(user, 'Blog title2', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+        post2 = create_post(blog, user, 'Post title2', 'Post content', False)
+
+        response = self.client.get(
+            f'/search/?title=title2&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'No matches found, please try again')
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post2.title}</h4>',
+            html=True,
+        )
+
+    def test_search_title_no_post_contains_phrase(self):
+        """
+        If there's specfied phrase for searching in title, 
+        and no post contains it, none of the posts will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        blog2 = create_blog(user, 'Blog title2', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+        post2 = create_post(blog, user, 'Post title2', 'Post content', False)
+
+        response = self.client.get(
+            f'/search/?title=Hello&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post2.title}</h4>',
+            html=True,
+        )
+        self.assertContains(response, 'No matches found, please try again')
+
 
 class BlogFormTests(TestCase):
 
