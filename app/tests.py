@@ -318,6 +318,157 @@ class PostsSearchViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'No matches found, please try again')
 
+    def test_one_post_not_auth(self):
+        """
+        If there's one post with no auth_required and search criteria is default(criteria mateches every post),
+        this post will be displayed in the search result
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+
+        response = self.client.get('/search/?title=&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+
+    def test_one_post_auth_user_not_logged(self):
+        """
+        If there's one post with auth_required and search criteria is default(criteria matches every post)
+        and user is unlogged, user will only see message that this post is private
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        response = self.client.get('/search/?title=&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            f'<p class="info info--post">Only logged members can see post: {post.title}</p>',
+            html=True,
+        )
+
+    def test_one_post_auth_user_logged(self):
+        """
+        If there's one post with auth_required and search criteria is default(criteria matches every post)
+        and user is logged, user will see post
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get('/search/?title=&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            f'<p class="info info--post">Only logged members can see post: {post.title}</p>',
+            html=True,
+        )
+
+    def test_search_private_post_private(self):
+        """
+        If there's one post with auth_required and auth_required search criteria are set to private
+        and user is logged, user will see post
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get('/search/?title=&blog=&auth=True')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            f'<p class="info info--post">Only logged members can see post: {post.title}</p>',
+            html=True,
+        )
+
+    def test_search_private_post_public(self):
+        """
+        If there's one post without auth_required and auth_required search criteria are set to private,
+        no post will be dipslayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+
+        self.client.login(username='anon', password='testpassword')
+        response = self.client.get('/search/?title=&blog=&auth=True')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertNotContains(
+            response,
+            f'<p class="info info--post">Only logged members can see post: {post.title}</p>',
+            html=True,
+        )
+        self.assertContains(response, 'No matches found, please try again')
+
+    def test_search_public_post_public(self):
+        """
+        If there's one post without auth_required and auth_required search criteria are set to public
+        user will see post
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', False)
+
+        response = self.client.get('/search/?title=&blog=&auth=False')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+
+    def test_search_public_post_private(self):
+        """
+        If there's one post with auth_required and auth_required search criteria are set to public,
+        no post will be displayed
+        """
+        user = create_user('anon')
+        blog = create_blog(user, 'Blog title', 'Blog description')
+        post = create_post(blog, user, 'Post title', 'Post content', True)
+
+        response = self.client.get('/search/?title=&blog=&auth=False')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            f'<h4 class="post__title">{post.title}</h4>',
+            html=True,
+        )
+        self.assertContains(response, 'No matches found, please try again')
+
 
 class BlogFormTests(TestCase):
 
