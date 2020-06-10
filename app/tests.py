@@ -307,6 +307,18 @@ class PostCommentsViewTests(TestCase):
         )
 
 
+class PostsSearchViewTests(TestCase):
+
+    def test_no_posts(self):
+        """
+        If there's no posts, an appropriate message is displayed
+        """
+        response = self.client.get('/search/?title=&blog=&auth=both')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'No matches found, please try again')
+
+
 class BlogFormTests(TestCase):
 
     def test_valid_data(self):
